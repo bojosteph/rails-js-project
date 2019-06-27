@@ -25,8 +25,11 @@ gem 'jbuilder', '~> 2.5'
 gem 'rack-cors'
 gem 'devise'
 gem 'faker'
+gem 'jquery-rails'
 gem 'active_model_serializers'
 gem 'dotenv-rails'
+gem 'omniauth'
+gem 'omniauth-facebook'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password

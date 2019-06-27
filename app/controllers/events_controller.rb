@@ -3,10 +3,11 @@ class EventsController < ApplicationController
     
     def index
       @events = Event.all
+      # render json: @events
         respond_to do |format|
          format.html { render :index }
          format.json { render json: @events, status: 200}
-        end
+      end
     end 
   
     
@@ -16,10 +17,11 @@ class EventsController < ApplicationController
     def show
       
       @event = Event.find(params[:id])
-      respond_to do |format|
-        format.html { render :js_show }
-        format.json { render json: @event, status: 200}
-      end
+      render json: @event
+      # respond_to do |format|
+      #   format.html { render :js_show }
+      #   format.json { render json: @event, status: 200}
+      # end
     end
     
     

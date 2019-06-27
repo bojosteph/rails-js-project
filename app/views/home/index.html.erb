@@ -1,2 +1,19 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<header>
+  <div class="overlay"></div>
+  <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+    <source src="/images/mp4/concert.mp4" type="video/mp4">
+  </video>
+  <div class="container h-100">
+    <div class="d-flex h-100 text-center align-items-center">
+      <div class="w-100 text-white">
+        <h1 class="display-3" style="color:white">Welcome to Rails Event App</h1>
+        <br />
+        <% if not user_signed_in? %>
+        <h3><a href="/signin">Log In</a> </h3>
+        <h3><a href="/signup">Create Account</a></h3>
+        <h4><%= link_to "Sign in with Facebook", user_facebook_omniauth_authorize_path %></h4>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</header>

@@ -1,45 +1,34 @@
 class EventsController < ApplicationController
-
+    before_action :authenticate_user!
+    before_action :set_time_zone, if: :user_signed_in?
     
     def index
       @events = Event.all
-      # render json: @events
-        respond_to do |format|
+      respond_to do |format|
          format.html { render :index }
          format.json { render json: @events, status: 200}
       end
-    end 
-  
+    end   
     
-    
-  
-  
-    def show
-      
+    def show        
       @event = Event.find(params[:id])
-      render json: @event
-      # respond_to do |format|
-      #   format.html { render :js_show }
-      #   format.json { render json: @event, status: 200}
-      # end
-    end
-    
-    
-  
-  
+      respond_to do |format|
+          format.html { render :show }
+          format.json { render json: @event, status: 200}
+       end
+    end                 
   
     def new
       @event = Event.new
     end
   
     def create                         
-      @event = @user.events.build(event_params(:name, :location, :description, :search, :planner_id, :start_date, :end_date, :category_id, category_attributes: [:name]))
+      @event = @user.events.build(event_params)
   
       if @event.save
         flash[:message] = "YOU HAVE CREATED #{@event.name.upcase}"
         redirect_to event_path(@event)
       else
-        @event.build_category
         render :new
       end
     end
@@ -55,7 +44,10 @@ class EventsController < ApplicationController
       @event = Event.find(params[:id])
       if @event.update(event_params)
         flash[:message] = "YOU HAVE UPDATED #{@event.name.upcase}"
-        redirect_to event_path(@event)
+        respond_to do |format|
+          format.html { event_path(@event) }
+          format.json { render json: @event, status: 200}
+        end
       else
         render :edit
       end
@@ -66,7 +58,10 @@ class EventsController < ApplicationController
       @event = Event.find(params[:id])
       @event.destroy
       flash[:message] = "YOU HAVE DELETED #{@event.name.upcase}"
-      redirect_to events_path(@user)
+      respond_to do |format|
+          format.html { events_path(@user) }
+          format.json { render json: {eventId: @event.id}}
+      end
     end
    
                                   

@@ -19,3 +19,6 @@ user3.rsvps.create(attending_event_id: event2.id)
 user4.rsvps.create(attending_event_id: event1.id)
 user5.rsvps.create(attending_event_id: event2.id)
 user6.rsvps.create(attending_event_id: event3.id)
+
+
+event3.reviews.create(reviewer_id: user3.id, body: "I like attending this event and I love Candy")

@@ -6,21 +6,11 @@ class Event {
     this.description = event.description
     this.start_date = event.start_date
     this.end_date = event.end_date
-    // this.reviews = event.reviews
-    // this.rsvp_events = event.rsvp_events
+    this.reviews = event.reviews
+    this.rsvp_events = event.rsvp_events
   }
   renderEvents() {
-    // let eventReviews = this.reviews.map(review => {
-    //   return (`
-    // <p>Reviewer: ${review.full_name} Rating: ${review.rating}  Review: ${review.body}</p>
-    // `)
-    // }).join('')
-
-    // let eventParticipants = this.rsvp_events.map(rsvp => {
-    //   return (`
-    // <p>Participants: ${rsvp.participant}</p>
-    // `)
-    // }).join('')
+    
     return (`
       <div class="card-mb-3">
                 <div class="card-body">

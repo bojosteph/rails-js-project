@@ -24,7 +24,10 @@ Rails.application.routes.draw do
   get 'delete_review' => 'reviews#destroy'
   
  
-  resources :users
+  resources :users do
+    resources :events
+  end
+  
   resources :events
 
   resources :events do

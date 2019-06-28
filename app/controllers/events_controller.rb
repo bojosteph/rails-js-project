@@ -1,4 +1,5 @@
 class EventsController < ApplicationController
+    # skip_before_action :verify_authenticity_token
     before_action :authenticate_user!
     before_action :set_time_zone, if: :user_signed_in?
     
@@ -22,12 +23,16 @@ class EventsController < ApplicationController
       @event = Event.new
     end
   
-    def create                         
+    def create 
+      @user =  current_user                       
       @event = @user.events.build(event_params)
   
       if @event.save
         flash[:message] = "YOU HAVE CREATED #{@event.name.upcase}"
-        redirect_to event_path(@event)
+        respond_to do |format|
+          format.html { user_path(@user) }
+          format.json { render json: @event, status: 200}
+       end
       else
         render :new
       end

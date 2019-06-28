@@ -12,3 +12,10 @@ event3 = user3.events.create(name: " Candy Event", location: "Willy Wonka Factor
 event4 = user4.events.create(name: " Floyd County Fair",  location: "Floyd Park Center", description: "Its The COUNTY fair , Funnel Cake and Safe rides ", start_date: Faker::Date.forward(8), end_date: Faker::Date.forward(18))
 event5 = user5.events.create(name: " Playoff Basketball",  location: "Phillips Center", description: "Eastern  Conference Finals ", start_date: Faker::Date.forward(36), end_date: Faker::Date.forward(45))
 event6 = user6.events.create(name: " Meetup Event", location: "Starbucks Cheesecake Factory", description: "Tech Meetup and dessert", start_date: Faker::Date.forward(2), end_date: Faker::Date.forward(10))
+
+user2.rsvps.create(attending_event_id: event1.id)
+user1.rsvps.create(attending_event_id: event3.id)
+user3.rsvps.create(attending_event_id: event2.id)
+user4.rsvps.create(attending_event_id: event1.id)
+user5.rsvps.create(attending_event_id: event2.id)
+user6.rsvps.create(attending_event_id: event3.id)

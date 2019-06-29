@@ -3,11 +3,14 @@ class EventsAdapter {
   constructor() {
     this.baseUrl =
       'http://localhost:3000/events.json'
+    
   }
 
   
   fetchEvents(url) {
-    return fetch(url).then(res => res.json())
+    return fetch(url)
+    .then(this.status)
+    .then(this.json)
   }
 
   createEvent(name, location, description, planner_id, start_date, end_date) {
@@ -31,6 +34,31 @@ class EventsAdapter {
       },
       body: JSON.stringify({ event}),
     }).then(res => res.json())
+  }
+
+  deleteEvent(url) {
+    const csrfToken = document.querySelector("meta[name=csrf-token]").content
+    return fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'Content-type': 'application/json',
+        'X-CSRF-Token': csrfToken
+      }
+    })
+     .then(this.status)
+     
+    
+  }
+
+  status(response) {
+    if(response.status >= 200 && response.status < 300) {
+      return Promise.resolve(response)
+    } else {
+      return Promise.reject(new Error(response.statusText))
+    }
+  }
+  json(response) {
+    return response.json()
   }
 
 

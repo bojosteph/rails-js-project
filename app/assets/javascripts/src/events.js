@@ -30,8 +30,15 @@ class Events {
     //Show user show page on DOMContentLoaded
     this.getUserEvents()
     // Edit user events
+
+    
+    
     
     this.userEventsContainer.addEventListener('click', this.enableEdit.bind(this))
+
+    //Delete events
+    this.userEventsContainer.addEventListener('click', this.deleteUserEvent.bind(this))
+    
 
  
   
@@ -40,23 +47,21 @@ class Events {
 
   getEvents() {
    this.adapter.fetchEvents('http://localhost:3000/events.json')
-   .then(events => {
-     events.sort((a, b) => a.id - b.id).forEach(event => this.events.push(new Event(event)))
-       console.log(this.events)
+   .then(function (data) {
+     console.log(data)
+     data.map(event => {
+       const newEvent = new Event(event)
+       const newEventHtml = newEvent.renderEvents()
+       document.getElementById('output').innerHTML += newEventHtml  
+     })
+     
    })
-   .then(() => {
-     this.render()
-   })    
-     .catch(err => console.log(err));
+   .catch(err => console.log(err))
    }
-
-   render() {
-     this.eventsContainer.innerHTML = this.events.map(event => event.renderEvents()).join('')
-   }
+        
 
    createEvent(e) {
-     e.preventDefault()
-
+    
      const name = this.newEventName.value;
      const location = this.newEventLocation.value;
      const description = this.newEventDescription.value;
@@ -67,9 +72,11 @@ class Events {
 
      this.adapter.createEvent(name, location, description, planner_id, start_date, end_date).then(event => {
        this.events.push(new Event(event))
-       this.clearFields()
        this.renderUserEvents()
+       this.clearFields()
+       
      })
+     e.preventDefault();
    }
    
    getUserEvents(){
@@ -104,6 +111,30 @@ class Events {
       if(e.target.parentElement.classList.contains('edit')) {
         console.log('Clicked')
       }
+    }
+
+    deleteUserEvent(e) {
+      e.preventDefault();
+      if(e.target.parentElement.classList.contains('delete')){
+        
+        const id = e.target.parentElement.dataset.id;
+        
+        if(confirm('Are you sure?')) {
+           this.adapter.deleteEvent(`http://localhost:3000/events/${id}`)
+            .then(() => {
+              // debugger
+               console.log('deleted item');
+              // this.getUserEvents()
+            })
+          .then(() => {
+        
+            this.renderUserEvents()
+          })
+          }
+          
+        }
+       
+       
     }
 
    }

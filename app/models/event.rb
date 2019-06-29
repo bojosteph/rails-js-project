@@ -2,7 +2,7 @@ class Event < ApplicationRecord
   belongs_to :planner, class_name: 'User', foreign_key: 'planner_id'
   validates_presence_of :name, :location, :description, :start_date, :end_date
   has_many :rsvps, foreign_key: :attending_event_id
-  has_many :participants, through: :rsvp_events, dependent: :destroy
+  has_many :participants, through: :rsvps, dependent: :destroy
   has_many :reviews, foreign_key: :reviewing_event_id
   has_many :reviewers, through: :reviews, dependent: :destroy
   
@@ -80,9 +80,7 @@ class Event < ApplicationRecord
   
 
 
-  def category_attributes=(category_attributes)
-    build_category(category_attributes) unless category_attributes[:name].blank?
-  end
+  
 end
 
 

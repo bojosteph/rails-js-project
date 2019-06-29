@@ -52,7 +52,7 @@ class EventsController < ApplicationController
       if @event.update(event_params)
         flash[:message] = "YOU HAVE UPDATED #{@event.name.upcase}"
         respond_to do |format|
-          format.html { event_path(@event) }
+          format.html { user_path(@user) }
           format.json { render json: @event, status: 200}
         end
       else
@@ -64,9 +64,9 @@ class EventsController < ApplicationController
       @user = current_user
       @event = Event.find(params[:id])
       @event.destroy
-      flash[:message] = "YOU HAVE DELETED #{@event.name.upcase}"
+      # flash[:message] = "YOU HAVE DELETED #{@event.name.upcase}"
       respond_to do |format|
-          format.html { events_path(@user) }
+          format.html { event_path(@user) }
           format.json { render json: {eventId: @event.id}}
       end
     end

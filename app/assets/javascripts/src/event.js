@@ -14,8 +14,8 @@ class Event {
     return (`
       <div class="card-mb-3">
                 <div class="card-body">
-                  <h5 class="card-name">${this.name}</h4>
-                  <h6 class="card-location">${this.location}</h6i>
+                  <a href="/events/${this.id}"><h5 class="card-name">${this.name}</h4></a>
+                  <h6 class="card-location">${this.location}</h6>
                   <p class="card-description">${this.description}</p>
                   <p class="card-start-date">${this.start_date}</p>
                   <p class="card-end-date">${this.end_date}</li> <br>

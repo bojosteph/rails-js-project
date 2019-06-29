@@ -46,8 +46,7 @@ class Events {
    })
    .then(() => {
      this.render()
-   })
-    
+   })    
      .catch(err => console.log(err));
    }
 
@@ -69,7 +68,7 @@ class Events {
      this.adapter.createEvent(name, location, description, planner_id, start_date, end_date).then(event => {
        this.events.push(new Event(event))
        this.clearFields()
-       this.render()
+       this.renderUserEvents()
      })
    }
    

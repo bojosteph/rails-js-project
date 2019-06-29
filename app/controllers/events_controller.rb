@@ -28,13 +28,15 @@ class EventsController < ApplicationController
       @event = @user.events.build(event_params)
   
       if @event.save
-        flash[:message] = "YOU HAVE CREATED #{@event.name.upcase}"
         respond_to do |format|
           format.html { user_path(@user) }
           format.json { render json: @event, status: 200}
        end
       else
-        render :new
+        respond_to do |format|
+          format.html { render :new }
+          format.json { render json: @event.errors, status: :unprocessable_entity}
+        end
       end
     end
   

@@ -26,6 +26,8 @@
   <%= f.label :description %>
   <%= f.text_area  :description,  class: 'form-control'%>
 </div>
-
-<%= f.submit %>
+<%= hidden_field_tag :id, value: ""  %>
+<div class="action">
+<%= f.submit class: 'event-submit btn btn-primary btn-block' %>
+</div>
 <% end %>

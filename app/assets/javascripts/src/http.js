@@ -50,4 +50,3 @@ class EasyHTTP {
 
 }
 
-// export const http = new EasyHTTP();

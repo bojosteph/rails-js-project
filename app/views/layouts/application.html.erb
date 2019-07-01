@@ -52,16 +52,7 @@
     </div>
 
   </nav>
-  <div id="flash"></div>
-  <%- flash.keys.each do |kind| %>
-  <div class=<%= kind %>>
-    <h5><%= flash[kind] %></h5>
-  </div>
-  <%- end %>
-  </div>
-
   
-
     <%= yield %>
 
 

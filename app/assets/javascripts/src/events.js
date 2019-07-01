@@ -23,12 +23,12 @@ class Events {
     this.adapter = new EventsAdapter();
        
     this.getEvents()
+    this.getEvent()
     
     this.eventsContainer = document.getElementById('output');
+    this.eventContainer = document.getElementById('show-event')
       
   }
-
-
 
   getEvents() {
    this.adapter.fetchEvents('http://localhost:3000/events.json')
@@ -42,6 +42,10 @@ class Events {
      
    })
    .catch(err => console.log(err))
+   }
+
+   getEvent() {
+     this.adapter.fetchEvents(`http://localhost:3000/events`)
    }
         
   }

@@ -43,12 +43,8 @@ class UserEvents {
 
   }
 
-  
-
-
-
   createEvent() {
-    debugger
+    
 
     const name = this.newEventName.value;
     const location = this.newEventLocation.value;
@@ -61,7 +57,7 @@ class UserEvents {
     
 
     if(name === '' || location === '' || description === '' || start_date === '' || end_date === '') {
-      debugger
+      
       ui.showAlert('Please fill in all the fields', 'alert alert-danger' );
     } else {
       if(id === '') {
@@ -166,7 +162,7 @@ class UserEvents {
     this.newEventEnd.value = data.end_date;
     this.newEventLocation.value = data.location;
     this.newEventDescription.value = data.description;
-    this.idInput = data.id;
+    this.idInput.value = data.id;
 
     const ui = new UI();
 

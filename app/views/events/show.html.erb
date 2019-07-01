@@ -1,0 +1,22 @@
+<body>
+  <nav class="navbar navbar-dark bg-primary mb-3">
+    <div class="container">
+      <a href="#" class="navbar-brand"><%@event.name.upcase%></a>
+    </div>
+  </nav>
+
+  <div class="container eventsContainer">
+    <div class="card card-body card-form">
+      <h1>Review Event</h1>
+      <p class="lead">Create Something Great</p>
+      <%= render partial:'/reviews/form', locals: {user: @user, event: @event} %>
+      <span class="form-end"></span>
+    </div>
+    <br>
+
+    <br><br>
+    <!-- <button id="event-button" data-id='<%=current_user.id%>'>Get Events</button> -->
+    <br><br>
+    <div id="show-event"></div>
+  </div>
+  <br><br>

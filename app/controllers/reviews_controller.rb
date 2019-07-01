@@ -3,8 +3,13 @@ class ReviewsController < ApplicationController
 
   def index
     # raise params.inspect
+    @user = current_user
     @event = Event.find_by(id: params[:event_id])
-    @reviews = Review.all
+    @reviews = Review.where(reviewing_event_id: @event.id)
+    respond_to do |format|
+      format.html { render event_review_path, each_serializer: EventReviewSerializer }
+      format.json { render json:  @reviews, status: 200}
+    end
   end
 
   def new

@@ -12,13 +12,19 @@ class EventsController < ApplicationController
     end   
     
     def show        
+      @user = current_user
       @event = Event.find(params[:id])
+      @rsvp = Rsvp.find_by(participant_id: @user.id, attending_event_id: @event.id)
+      @review = Review.new
+      # @review = Review.find_by(reviewer_id: @user.id, reviewing_event_id: @event.id)
+      @rsvps = Rsvp.where(attending_event_id: @event.id)
+      @reviews = Review.where(reviewing_event_id: @event.id)
       respond_to do |format|
-          format.html { render :show }
-          format.json { render json: @event, status: 200}
-       end
-    end                 
-  
+        format.html { render :show }
+        format.json { render json: @event, status: 200}
+      end
+    end
+
     def new
       @event = Event.new
     end
@@ -50,7 +56,7 @@ class EventsController < ApplicationController
       @user = current_user
       @event = Event.find(params[:id])
       if @event.update(event_params)
-        flash[:message] = "YOU HAVE UPDATED #{@event.name.upcase}"
+        
         respond_to do |format|
           format.html { user_path(@user) }
           format.json { render json: @event, status: 200}

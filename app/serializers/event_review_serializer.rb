@@ -1,3 +1,7 @@
 class EventReviewSerializer < ActiveModel::Serializer
-  attributes :body
+  attributes :id, :body, :full_name
+
+  def full_name
+    object.reviewer.full_name
+  end
 end

@@ -7,8 +7,8 @@ class ReviewsController < ApplicationController
     @event = Event.find_by(id: params[:event_id])
     @reviews = Review.where(reviewing_event_id: @event.id)
     respond_to do |format|
-      format.html { render event_review_path, each_serializer: EventReviewSerializer }
-      format.json { render json:  @reviews, status: 200}
+      format.html { redirect_to event_reviews_path }
+      format.json { render json:  @reviews, each_serializer: EventReviewSerializer }
     end
   end
 

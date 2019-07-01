@@ -24,9 +24,13 @@ class Events {
        
     this.getEvents()
     this.getEvent()
+    this.getReviews()
     
-    this.eventsContainer = document.getElementById('output');
+    this.eventsContainer = document.getElementById('output')
     this.eventContainer = document.getElementById('show-event')
+    this.reviewContainer = document.getElementById('show-reviews')
+    
+    
       
   }
 
@@ -44,11 +48,38 @@ class Events {
    .catch(err => console.log(err))
    }
 
+
    getEvent() {
-     this.adapter.fetchEvents(`http://localhost:3000/events`)
+    
+    
+     const id = document.getElementById('show-event').dataset.id
+
+     this.adapter.fetchEvents(`http://localhost:3000/events/${id}.json`)
+     .then(data => {
+       const showEvent = new Event(data)
+       const showEventHtml = showEvent.renderEvent()
+       this.eventContainer.innerHTML = showEventHtml
+     })
    }
-        
-  }
+
+    getReviews() {
+      // debugger
+     const id = document.getElementById('show-event').dataset.id
+    
+     this.adapter.fetchEvents(`http://localhost:3000/events/${id}.json`)
+     .then(function (data) {
+         console.log(data)
+         data.reviews.forEach(review => {
+           const newReview = new Review(review)
+           const newReviewHtml = newReview.renderReview()
+           document.getElementById('show-reviews').innerHTML += newReviewHtml
+         })
+        //  debugger
+       })
+       .catch(err => console.log(err))
+     }
+
+}
 
 
 

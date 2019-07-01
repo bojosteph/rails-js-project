@@ -3,6 +3,23 @@ class UI {
     
     this.idInput = document.querySelector('#id');
     this.eventSubmit = document.querySelector('.event-submit');
+    this.forState = 'add';
+    
+  }
+
+  showAlert(message, className) {
+    this.clearAlert();
+
+    const div = document.createElement('div');
+    div.className = className;
+    div.appendChild(document.createTextNode(message));
+    const container = document.querySelector('.eventsContainer');
+    const events = document.querySelector('#events');
+    container.insertBefore(div, events);
+
+    setTimeout(() => {
+      this.clearAlert();
+    }, 2000);
   }
 
   clearFields() {
@@ -13,16 +30,16 @@ class UI {
     this.newEventEnd.value = '';
   }
 
-  fillForm(data) {
-   editEvent.newEventName.value = data.name;
-   editEvent.newEventLocation.value = data.location;
-   editEvent.newEventDescription.value = data.descrition;
-   editEvent.plannerId.value = data.planner_id;
-   editEvent.newEventStart.value = data.start_date;
-   editEvent.newEventEnd.value = data.end_date;
 
-   this.changeFormState('edit');
+  clearAlert() {
+    const currentAlert = document.querySelector('.alert');
+
+    if(currentAlert) {
+      currentAlert.remove();
+    }
   }
+
+  
 
   clearIdInput() {
     this.idInput.value = '';

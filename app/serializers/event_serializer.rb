@@ -5,10 +5,10 @@ class EventSerializer < ActiveModel::Serializer
   belongs_to :planner, class_name: 'User', foreign_key: 'planner_id'
   
   def start_date
-    object.start_date.strftime('%b %e, %l:%M %p')
+    object.start_date.strftime('%Y-%m-%d')
   end
 
   def end_date
-    object.end_date.strftime('%b %e, %l:%M %p')
+    object.end_date.strftime('%Y-%m-%d')
   end
 end

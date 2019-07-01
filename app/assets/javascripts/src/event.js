@@ -18,7 +18,7 @@ class Event {
                   <h6 class="card-location">${this.location}</h6>
                   <p class="card-description">${this.description}</p>
                   <p class="card-start-date">${this.start_date}</p>
-                  <p class="card-end-date">${this.end_date}</li> <br>
+                  <p class="card-end-date">${this.end_date}</p> 
                  <a href="#" class="edit card-link" data-id="${this.id}">
                     <i class="fa fa-pencil"></i>
                  </a>

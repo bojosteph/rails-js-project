@@ -1,7 +1,7 @@
 class Review {
   constructor(attributes) {
-    this.body = attributes["body"];
-    this.full_name = attributes["full_name"]
+    this.body = attributes.body
+    this.full_name = attributes.full_name
   }
 
   renderReview() {

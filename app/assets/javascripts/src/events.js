@@ -18,6 +18,7 @@ else document.attachEvent('onreadystatechange', function () {
 
 class Events {
   constructor() {
+    this.reviews = [];
       
     this.adapter = new EventsAdapter();
        
@@ -69,18 +70,31 @@ class Events {
       // debugger
      const id = document.getElementById('show-event').dataset.id
     
-     this.adapter.fetchEvents(`http://localhost:3000/events/${id}.json`)
-     .then(function (data) {
-         console.log(data)
-         data.reviews.forEach(review => {
-           const newReview = new Review(review)
-           const newReviewHtml = newReview.renderReview()
-           document.getElementById('show-reviews').innerHTML += newReviewHtml
-         })
-        //  debugger
-       })
-       .catch(err => console.log(err))
-     }
+     this.adapter.fetchEvents(`http://localhost:3000/events/${id}/reviews.json`)
+     .then(reviews => {
+        reviews.forEach(review => this.reviews.push(new Review(review)))
+        console.log(this.reviews)          
+     })
+     .then(()=> {
+       this.renderEventsReview()
+     })
+    }
+
+    renderEventsReview() {
+      this.reviewContainer.innerHTML = this.reviews.map(review => review.renderReview()).join('')
+    }
+    
+        
+    //      data.map(review => {
+    //        const newReview = new Review(review)
+    //        const newReviewHtml = newReview.renderReview()
+    //        document.getElementById('show-reviews').innerHTML += newReviewHtml
+  
+    //     //  debugger
+    //    })
+    //   })
+    //   .catch(err =>  console.log(err));
+    //  }
 
      createReview(e) {
        
@@ -91,10 +105,9 @@ class Events {
 
        this.adapter.createReview(reviewer_id, reviewing_event_id, body)
        .then(review => {
-         this.getReviews()
-         this.clearReviewFields()
+         this.reviews.push(new Review(review))
          this.reviewBody.value = '';
-       
+         this.renderEventsReview()
        })
        
      }

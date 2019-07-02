@@ -33,7 +33,7 @@ class EventsAdapter {
         'content-type': 'application/json',
          'X-CSRF-Token': this.token.value
       },
-      body: JSON.stringify({ event}),
+      body: JSON.stringify({event}),
     }).then(res => res.json())
   }
 
@@ -69,6 +69,22 @@ class EventsAdapter {
 
   }).then(this.status)
     .then(this.json)
+}
+
+createReview(reviewer_id, reviewing_event_id, body) {
+  const review = {
+    reviewer_id: reviewer_id,
+    reviewing_event_id: reviewing_event_id,
+    body: body
+  }
+  return fetch(`http://localhost:3000/events/${reviewing_event_id}/reviews.json`, {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json',
+      'X-CSRF-Token': this.csrfToken.content
+    },
+    body: JSON.stringify({review}),
+  }).then(res => res.json())
 }
 
   status(response) {

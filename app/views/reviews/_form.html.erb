@@ -3,13 +3,13 @@
 <% end %>
 
 <%= form_for([@event, @review]) do |f|%>
-<%= f.hidden_field :reviewer_id %>
+<%= f.hidden_field :reviewer_id, value: current_user.id %>
 
-<div class="form-group">
+<div class="review-group">
   <%= f.label :body %>
   <%= f.text_area :body, class: 'form-control' %>
 </div>
 
 
-<%= f.submit 'Submit', id: "sub" %>
+<%= f.submit 'Submit', id: "submit-review" %>
 <% end %>

@@ -27,10 +27,15 @@ class ReviewsController < ApplicationController
     @review.reviewer = @user
 
     if @review.save
-      redirect_to event_path(user_id: @user.id, id: @event.id)
+      respond_to do |format|
+          format.html { event_path(@event) }
+          format.json { render json: @review, status: 200}
+      end
     else
-      flash[:error] = 'YOU ALREADY REVIEWED THIS EVENT OR YOU NEED TO WRITE A REVIEW.'
-      redirect_to event_path(user_id: @user.id, id: @event.id)
+      respond_to do |format|
+          format.html { render :new }
+          format.json { render json: @review.errors, status: :unprocessable_entity}
+      end
     end
   end
 

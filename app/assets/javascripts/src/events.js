@@ -18,18 +18,21 @@ else document.attachEvent('onreadystatechange', function () {
 
 class Events {
   constructor() {
-  
-    
+      
     this.adapter = new EventsAdapter();
        
-    this.getEvents()
-    this.getEvent()
-    this.getReviews()
-    
-    this.eventsContainer = document.getElementById('output')
-    this.eventContainer = document.getElementById('show-event')
-    this.reviewContainer = document.getElementById('show-reviews')
-    
+    this.getEvents();
+    this.getEvent();
+    this.getReviews();
+
+    this.reviewerId = document.getElementById('review_reviewer_id');
+    this.eventId = document.getElementById('show-event');
+    this.reviewBody = document.getElementById('review_body');
+    this.eventsContainer = document.getElementById('output');
+    this.eventContainer = document.getElementById('show-event');
+    this.reviewContainer = document.getElementById('show-reviews');
+    this.reviewForm = document.getElementById('new_review');
+    this.reviewForm.addEventListener('submit', this.createReview.bind(this));
     
       
   }
@@ -78,6 +81,24 @@ class Events {
        })
        .catch(err => console.log(err))
      }
+
+     createReview(e) {
+       
+       e.preventDefault()
+       const reviewer_id = document.getElementById('review_reviewer_id').value;
+       const reviewing_event_id = document.getElementById('show-event').dataset.id;
+       const body = document.getElementById('review_body').value;
+
+       this.adapter.createReview(reviewer_id, reviewing_event_id, body)
+       .then(review => {
+         this.getReviews()
+         this.clearReviewFields()
+         this.reviewBody.value = '';
+       
+       })
+       
+     }
+    
 
 }
 

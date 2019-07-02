@@ -36,16 +36,16 @@ class UserEvents {
     this.getUserEvents();
 
 
-    this.userEventsContainer.addEventListener('click', this.enableEdit.bind(this))
+    // this.userEventsContainer.addEventListener('click', this.enableEdit.bind(this))
 
 
     this.userEventsContainer.addEventListener('click', this.deleteUserEvent.bind(this))
 
   }
 
-  createEvent() {
+  createEvent(e) {
+    e.preventDefault()
     
-
     const name = this.newEventName.value;
     const location = this.newEventLocation.value;
     const description = this.newEventDescription.value;
@@ -53,52 +53,16 @@ class UserEvents {
     const start_date = this.newEventStart.value;
     const end_date = this.newEventEnd.value;
     const id = document.querySelector('#id').value;
-    
-    
 
-    if(name === '' || location === '' || description === '' || start_date === '' || end_date === '') {
-      
-      ui.showAlert('Please fill in all the fields', 'alert alert-danger' );
-    } else {
-      if(id === '') {
-    
-
-
-
-    this.adapter.createEvent(name, location, description, planner_id, start_date, end_date).then(event => {
-      this.events.push(new Event(event))
-      this.renderUserEvents()
+      this.adapter.createEvent(name, location, description, planner_id, start_date, end_date).then(event => {
+      // this.events.push(new Event(event))
+      this.getUserEvents()
       this.clearFields()
 
     })
     .catch(err => console.log(err));
-  } else {
-    this.adapter.updateEvent(name, location, description, planner_id, start_date, end_date, id)
-    .then(data => {
-      const ui = new UI();
-      ui.showAlert('Event updated', 'alert alert-success');
-      ui.changeFormState('add');
-      getUserEvents();
-    })
-    .catch(err => console.log(err));
-  }
-    }
-  }
-  //  getUserEvents(){
-
-  //    const id = this.plannerId.value;
-
-  //    this.adapter.fetchEvents(`http://localhost:3000/users/${id}.json`)
-  //    .then(events => {
-  //      events.sort((a, b) => b.id - a.id).forEach(event => this.events.push(new Event(event)))
-  //      console.log(this.events)
-  //    })
-  //    .then(() => {
-  //      this.renderUserEvents()
-  //    })
-  //    .catch(err => console.log(err));
-  //   }
-
+   } 
+  
   getUserEvents() {
     const id = this.plannerId.value;
     this.adapter.fetchEvents(`http://localhost:3000/users/${id}.json`)
@@ -172,11 +136,8 @@ class UserEvents {
 
 
 
-
-
-
   deleteUserEvent(e) {
-    
+    //  e.preventDefault()
     if (e.target.parentElement.classList.contains('delete')) {
 
       const id = e.target.parentElement.dataset.id;
@@ -184,18 +145,18 @@ class UserEvents {
       if (confirm('Are you sure?')) {
         this.adapter.deleteEvent(`http://localhost:3000/events/${id}`)
           .then(() => {
-            // debugger
-            this.renderUserEvents();
+            
             // this.getUserEvents()
             console.log('deleted item');
+             this.getUserEvents();
           })
-          // .then(() => {
-  
-          //   this.getUserEvents()
-          }
+           
+        }
       }
-     e.preventDefault();
+       e.preventDefault();
     }
+
+    
 
 
   }

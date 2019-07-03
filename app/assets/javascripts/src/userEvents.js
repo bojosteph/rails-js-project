@@ -18,6 +18,7 @@ class UserEvents {
     this.events = [];
 
     this.adapter = new EventsAdapter();
+
     
     this.newEventName = document.getElementById('event_name');
     this.newEventLocation = document.getElementById('event_location');
@@ -32,14 +33,13 @@ class UserEvents {
 
     this.eventForm = document.querySelector('.card-form');
     this.eventForm.addEventListener('submit', this.createEvent.bind(this));
+    this.userEventsContainer.addEventListener('click', this.deleteUserEvent.bind(this))
 
     this.getUserEvents();
 
-
-    // this.userEventsContainer.addEventListener('click', this.enableEdit.bind(this))
-
-
-    this.userEventsContainer.addEventListener('click', this.deleteUserEvent.bind(this))
+    this.editButton = document.querySelector('.event-edit')
+    this.userEventsContainer.addEventListener('click', this.enableEdit.bind(this))
+    this.editButton.addEventListener('click', this.editEvent.bind(this))
 
   }
 
@@ -55,9 +55,9 @@ class UserEvents {
     const id = document.querySelector('#id').value;
 
       this.adapter.createEvent(name, location, description, planner_id, start_date, end_date).then(event => {
-      // this.events.push(new Event(event))
-      this.getUserEvents()
+      this.events.push(new Event(event))
       this.clearFields()
+      this.renderUserEvents()
 
     })
     .catch(err => console.log(err));
@@ -66,17 +66,16 @@ class UserEvents {
   getUserEvents() {
     const id = this.plannerId.value;
     this.adapter.fetchEvents(`http://localhost:3000/users/${id}.json`)
-      .then(function (data) {
-        console.log(data)
-        data.map(event => {
-          const newEvent = new Event(event)
-          const newEventHtml = newEvent.renderEvents()
-          document.getElementById('user-events').innerHTML += newEventHtml
-        })
+    .then(events => {
+      events.forEach(event => this.events.push(new Event(event)))
+      console.log(this.events)
+    })
+    .then(()=>{
+      this.renderUserEvents()
 
-      })
-      .catch(err => console.log(err))
+    })
   }
+  
 
   renderUserEvents() {
     this.userEventsContainer.innerHTML = this.events.map(event => event.renderEvents()).join('')
@@ -127,13 +126,8 @@ class UserEvents {
     this.newEventLocation.value = data.location;
     this.newEventDescription.value = data.description;
     this.idInput.value = data.id;
-
-    const ui = new UI();
-
-    ui.changeFormState('edit');
+  
   }
-
-
 
 
   deleteUserEvent(e) {
@@ -150,10 +144,30 @@ class UserEvents {
             console.log('deleted item');
              this.getUserEvents();
           })
-           
+          .catch(err => console.log(err));              
         }
       }
        e.preventDefault();
+    }
+
+    editEvent(e) {
+      e.preventDefault();
+
+      const name = this.newEventName.value;
+      const location = this.newEventLocation.value;
+      const description = this.newEventDescription.value;
+      const planner_id = this.plannerId.value;
+      const start_date = this.newEventStart.value;
+      const end_date = this.newEventEnd.value;
+      const id = document.querySelector('#id').value;
+
+      this.adapter.updateEvent(name, location, description, planner_id, start_date, end_date, id)
+      .then(data => {
+        console.log(data)
+        this.clearFields()
+        this.renderUserEvents()
+      })
+
     }
 
     

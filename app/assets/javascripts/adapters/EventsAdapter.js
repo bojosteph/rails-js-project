@@ -87,6 +87,17 @@ createReview(reviewer_id, reviewing_event_id, body) {
   }).then(res => res.json())
 }
 
+// deleteReview(url) {
+//   return fetch(url, {
+//     method: 'DELETE',
+//     headers: {
+//       'Content type': 'application/json',
+//       'X-CSRF-Token': this.csrfToken.content
+//     }
+//   })
+//   .then(this.status)
+// }
+
   status(response) {
     if(response.status >= 200 && response.status < 300) {
       return Promise.resolve(response)

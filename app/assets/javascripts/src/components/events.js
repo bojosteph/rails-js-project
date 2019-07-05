@@ -1,16 +1,16 @@
-function run() {
+// function run() {
  
-  console.log('Im Running Events')
-  const events = new Events();
-}
+//   console.log('Im Running Events')
+//   const events = new Events();
+// }
 
-if (document.readyState != 'loading') run();
+// if (document.readyState != 'loading') run();
 
-else if (document.addEventListener) document.addEventListener('DOMContentLoaded', run);
+// else if (document.addEventListener) document.addEventListener('DOMContentLoaded', run);
 
-else document.attachEvent('onreadystatechange', function () {
-  if (document.readyState == 'complete') run();
-});
+// else document.attachEvent('onreadystatechange', function () {
+//   if (document.readyState == 'complete') run();
+// });
 
 
 class Events {
@@ -47,7 +47,6 @@ class Events {
           const newEventHtml = newEvent.renderEvents()
           document.getElementById('output').innerHTML += newEventHtml
         })
-
       })
       .catch(err => console.log(err))
   }
@@ -67,7 +66,7 @@ class Events {
   }
 
   getReviews() {
-    // debugger
+   
     const id = document.getElementById('show-event').dataset.id
     
     this.adapter.fetchEvents(`http://localhost:3000/events/${id}/reviews.json`)

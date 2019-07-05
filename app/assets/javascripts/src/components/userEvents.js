@@ -1,15 +1,19 @@
-function runUser() {
-  console.log('Im Running UserEvents')
-  const userEvents = new UserEvents();
-}                  
 
-if (document.readyState != 'loading') runUser();
 
-else if (document.addEventListener) document.addEventListener('DOMContentLoaded', runUser);
+// function runUser() {
+//   console.log('Im Running UserEvents')
+//   const userEvents = new UserEvents();
+  
+// }                  
 
-else document.attachEvent('onreadystatechange', function () {
-  if (document.readyState == 'complete') runUser();
-});
+// if (document.readyState != 'loading') runUser();
+
+// else if (document.addEventListener) document.addEventListener('DOMContentLoaded', runUser);
+
+// else document.attachEvent('onreadystatechange', function () {
+//   if (document.readyState == 'complete') runUser();
+// });
+
 
 
 class UserEvents {
@@ -93,7 +97,7 @@ class UserEvents {
   enableEdit(e) {
   
     if (e.target.parentElement.classList.contains('edit')) {
-      //  debugger
+     
       const id = e.target.parentElement.dataset.id;
       const end_date = e.target.parentElement.previousElementSibling.textContent;
       const start_date = e.target.parentElement.previousElementSibling.previousElementSibling.textContent;
@@ -119,7 +123,7 @@ class UserEvents {
   }
 
   fillForm(data) {
-    // debugger
+  
     this.newEventName.value = data.name;
     this.newEventStart.value = data.start_date;
     this.newEventEnd.value = data.end_date;
@@ -131,7 +135,7 @@ class UserEvents {
 
 
   deleteUserEvent(e) {
-    //  e.preventDefault()
+    e.preventDefault()
     if (e.target.parentElement.classList.contains('delete')) {
 
       const id = e.target.parentElement.dataset.id;
@@ -140,14 +144,14 @@ class UserEvents {
         this.adapter.deleteEvent(`http://localhost:3000/events/${id}`)
           .then(() => {
             
-            // this.getUserEvents()
+           
             console.log('deleted item');
              this.getUserEvents();
           })
           .catch(err => console.log(err));              
         }
       }
-       e.preventDefault();
+      //  e.preventDefault();
     }
 
     editEvent(e) {

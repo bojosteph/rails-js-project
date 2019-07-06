@@ -9,6 +9,9 @@ class Event {
     this.reviews = event.reviews
     this.rsvps = event.rsvps
     this.planner = event.planner
+    this.idInput = document.querySelector('#id');
+    this.eventSubmit = document.querySelector('.event-submit');
+    this.forState = 'add';
   }
   renderEvents() {
     
@@ -66,5 +69,7 @@ class Event {
     <p>${eventReviews}</p>
     <p>${eventParticipants}</p>
   `)
-    }
+   }
+
+    
 }

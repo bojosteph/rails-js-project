@@ -3,13 +3,21 @@ class EventsController < ApplicationController
     before_action :authenticate_user!
     before_action :set_time_zone, if: :user_signed_in?
     
-    def index
-      @events = Event.all
-      respond_to do |format|
-         format.html { render :index }
-         format.json { render json: @events, status: 200}
+    def index 
+        # raise params.inspect
+        if params[:user_id]
+          @user = User.find_by(id: params[:user_id])
+          @events = @user.events
+        else
+          @events = Event.all
+        end
+         respond_to do |format|
+          format.html {render :index}
+          format.json { render json: @events, status: 200}
       end
-    end   
+    end
+    
+       
     
     def show        
       @user = current_user
@@ -35,8 +43,8 @@ class EventsController < ApplicationController
   
       if @event.save
         respond_to do |format|
-          format.html { user_path(@user) }
-          format.json { render json: @event, status: 200}
+          format.html { redirect_to @event, notice: 'Event succesfully created' }
+          format.json { render json: @event, status: 201}
        end
       else
         respond_to do |format|

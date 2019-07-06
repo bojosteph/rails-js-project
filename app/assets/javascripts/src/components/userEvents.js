@@ -18,9 +18,7 @@
 
 class UserEvents {
   constructor() {
-
     this.events = [];
-
     this.adapter = new EventsAdapter();
 
     
@@ -31,25 +29,22 @@ class UserEvents {
     this.newEventEnd = document.getElementById('event_end_date');
     this.plannerId = document.getElementById('event_planner_id');
     this.idInput = document.querySelector('#id');
-
     this.eventsContainer = document.getElementById('output');
     this.userEventsContainer = document.getElementById('user-events');
-
-    this.eventForm = document.querySelector('.card-form');
-    this.eventForm.addEventListener('submit', this.createEvent.bind(this));
-    this.userEventsContainer.addEventListener('click', this.deleteUserEvent.bind(this))
-
-    this.getUserEvents();
-
+    this.eventForm = document.querySelector('.event-submit');
+    this.eventForm.addEventListener('click', this.createEvent.bind(this));
+   // this.userEventsContainer.addEventListener('click', this.deleteUserEvent.bind(this))
     this.editButton = document.querySelector('.event-edit')
     this.userEventsContainer.addEventListener('click', this.enableEdit.bind(this))
     this.editButton.addEventListener('click', this.editEvent.bind(this))
+    this.userEventsContainer.addEventListener('click', this.deleteUserEvent.bind(this))
 
+    this.getUserEvents();
   }
 
   createEvent(e) {
+    // debugger
     e.preventDefault()
-    
     const name = this.newEventName.value;
     const location = this.newEventLocation.value;
     const description = this.newEventDescription.value;
@@ -61,15 +56,15 @@ class UserEvents {
       this.adapter.createEvent(name, location, description, planner_id, start_date, end_date).then(event => {
       this.events.push(new Event(event))
       this.clearFields()
-      this.renderUserEvents()
-
-    })
-    .catch(err => console.log(err));
+      this.events = []
+      this.getUserEvents();
+     })
+    e.preventDefault()
    } 
   
   getUserEvents() {
     const id = this.plannerId.value;
-    this.adapter.fetchEvents(`http://localhost:3000/users/${id}.json`)
+    this.adapter.fetchEvents(`http://localhost:3000/users/${id}/events.json`)
     .then(events => {
       events.forEach(event => this.events.push(new Event(event)))
       console.log(this.events)
@@ -135,23 +130,24 @@ class UserEvents {
 
 
   deleteUserEvent(e) {
-    e.preventDefault()
+    // e.preventDefault()
     if (e.target.parentElement.classList.contains('delete')) {
-
+       
       const id = e.target.parentElement.dataset.id;
+      e.target.parentElement.parentElement.remove();
 
       if (confirm('Are you sure?')) {
         this.adapter.deleteEvent(`http://localhost:3000/events/${id}`)
           .then(() => {
             
-           
+            
             console.log('deleted item');
              this.getUserEvents();
           })
           .catch(err => console.log(err));              
         }
       }
-      //  e.preventDefault();
+      e.preventDefault();
     }
 
     editEvent(e) {
@@ -169,7 +165,8 @@ class UserEvents {
       .then(data => {
         console.log(data)
         this.clearFields()
-        this.renderUserEvents()
+        this.events = []
+        this.getUserEvents()
       })
 
     }

@@ -2,7 +2,7 @@ class ReviewsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    # raise params.inspect
+    #  raise params.inspect
     @user = current_user
     @event = Event.find_by(id: params[:event_id])
     @reviews = Review.where(reviewing_event_id: @event.id)

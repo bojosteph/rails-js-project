@@ -34,7 +34,8 @@ class EventsAdapter {
          'X-CSRF-Token': this.token.value
       },
       body: JSON.stringify({event}),
-    }).then(res => res.json())
+    }).then(this.status)
+      .then(this.json)
   }
 
   deleteEvent(url) {
@@ -47,7 +48,8 @@ class EventsAdapter {
       }
     })
      .then(this.status)
-  }
+     .then(this.json)
+  }  
 
   updateEvent(name, location, description, planner_id, start_date, end_date, id) {
     const event = {

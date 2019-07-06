@@ -2,7 +2,11 @@ class UsersController < ApplicationController
   before_action :authenticate_user!, except: %i[new create]
 
   def index
-    @user = User.all
+    @users = User.all
+    respond_to do |format|
+      format.html { render :index }
+      format.json { render json: @users, status: 200}
+    end
   end
 
   def new

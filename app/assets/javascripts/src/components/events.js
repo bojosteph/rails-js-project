@@ -54,9 +54,9 @@ class Events {
 
   getEvent() {
 
-
+    
     const id = document.getElementById('show-event').dataset.id
-
+    
     this.adapter.fetchEvents(`http://localhost:3000/events/${id}.json`)
       .then(data => {
         const showEvent = new Event(data)
@@ -67,7 +67,7 @@ class Events {
 
   getReviews() {
    
-    const id = document.getElementById('show-event').dataset.id
+     const id = document.getElementById('show-event').dataset.id
     
     this.adapter.fetchEvents(`http://localhost:3000/events/${id}/reviews.json`)
       .then(reviews => {
@@ -105,7 +105,7 @@ class Events {
   
 
   deleteEventReview(e) {
-    e.preventDefault();
+     e.preventDefault();
     const review_id = e.target.parentElement.previousElementSibling.dataset.id;
     const id = this.eventId.dataset.id;
 
@@ -119,7 +119,7 @@ class Events {
       })  
       .catch(err => console.log(err));
     }
-    e.preventDefault();
+    // e.preventDefault();
   }  
   
       

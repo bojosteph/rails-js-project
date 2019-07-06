@@ -1,8 +1,8 @@
-function run(fn) {
+function run() {
 
   console.log('Im Running Events')
   const app = new App()
-  const events = new Events()
+  // const events = new Events()
 }
 
 if (document.readyState != 'loading') run();
@@ -14,3 +14,8 @@ else document.attachEvent('onreadystatechange', function () {
 });
 
 
+// document.addEventListener('DOMContentLoaded', function () {
+//   console.log('Im Running Events')
+//   const app = new App()
+//   // do something
+// });

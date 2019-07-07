@@ -1,9 +1,7 @@
-
-
 // function runUser() {
 //   console.log('Im Running UserEvents')
 //   const userEvents = new UserEvents();
-  
+
 // }                  
 
 // if (document.readyState != 'loading') runUser();
@@ -21,7 +19,7 @@ class UserEvents {
     this.events = [];
     this.adapter = new EventsAdapter();
 
-    
+
     this.newEventName = document.getElementById('event_name');
     this.newEventLocation = document.getElementById('event_location');
     this.newEventDescription = document.getElementById('event_description');
@@ -33,7 +31,7 @@ class UserEvents {
     this.userEventsContainer = document.getElementById('user-events');
     this.eventForm = document.querySelector('.event-submit');
     this.eventForm.addEventListener('click', this.createEvent.bind(this));
-   // this.userEventsContainer.addEventListener('click', this.deleteUserEvent.bind(this))
+    // this.userEventsContainer.addEventListener('click', this.deleteUserEvent.bind(this))
     this.editButton = document.querySelector('.event-edit')
     this.userEventsContainer.addEventListener('click', this.enableEdit.bind(this))
     this.editButton.addEventListener('click', this.editEvent.bind(this))
@@ -53,28 +51,28 @@ class UserEvents {
     const end_date = this.newEventEnd.value;
     const id = document.querySelector('#id').value;
 
-      this.adapter.createEvent(name, location, description, planner_id, start_date, end_date).then(event => {
+    this.adapter.createEvent(name, location, description, planner_id, start_date, end_date).then(event => {
       this.events.push(new Event(event))
       this.clearFields()
       this.events = []
       this.getUserEvents();
-     })
+    })
     e.preventDefault()
-   } 
-  
+  }
+
   getUserEvents() {
     const id = this.plannerId.value;
     this.adapter.fetchEvents(`http://localhost:3000/users/${id}/events.json`)
-    .then(events => {
-      events.forEach(event => this.events.push(new Event(event)))
-      console.log(this.events)
-    })
-    .then(()=>{
-      this.renderUserEvents()
+      .then(events => {
+        events.forEach(event => this.events.push(new Event(event)))
+        console.log(this.events)
+      })
+      .then(() => {
+        this.renderUserEvents()
 
-    })
+      })
   }
-  
+
 
   renderUserEvents() {
     this.userEventsContainer.innerHTML = this.events.map(event => event.renderEvents()).join('')
@@ -90,9 +88,9 @@ class UserEvents {
   }
 
   enableEdit(e) {
-  
+
     if (e.target.parentElement.classList.contains('edit')) {
-     
+
       const id = e.target.parentElement.dataset.id;
       const end_date = e.target.parentElement.previousElementSibling.textContent;
       const start_date = e.target.parentElement.previousElementSibling.previousElementSibling.textContent;
@@ -100,7 +98,7 @@ class UserEvents {
       const location = e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.textContent;
       const name = e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerText
       const planner_id = this.plannerId.value;
-      
+
 
       const data = {
         id: id,
@@ -110,7 +108,7 @@ class UserEvents {
         planner_id: planner_id,
         start_date: start_date,
         end_date: end_date
-        
+
       }
       this.fillForm(data);
     }
@@ -118,50 +116,50 @@ class UserEvents {
   }
 
   fillForm(data) {
-  
+
     this.newEventName.value = data.name;
     this.newEventStart.value = data.start_date;
     this.newEventEnd.value = data.end_date;
     this.newEventLocation.value = data.location;
     this.newEventDescription.value = data.description;
     this.idInput.value = data.id;
-  
+
   }
 
 
   deleteUserEvent(e) {
     // e.preventDefault()
     if (e.target.parentElement.classList.contains('delete')) {
-       
+
       const id = e.target.parentElement.dataset.id;
       e.target.parentElement.parentElement.remove();
 
       if (confirm('Are you sure?')) {
         this.adapter.deleteEvent(`http://localhost:3000/events/${id}`)
           .then(() => {
-            
-            
+
+
             console.log('deleted item');
-             this.getUserEvents();
+            this.getUserEvents();
           })
-          .catch(err => console.log(err));              
-        }
+          .catch(err => console.log(err));
       }
-      e.preventDefault();
     }
+    e.preventDefault();
+  }
 
-    editEvent(e) {
-      e.preventDefault();
+  editEvent(e) {
+    e.preventDefault();
 
-      const name = this.newEventName.value;
-      const location = this.newEventLocation.value;
-      const description = this.newEventDescription.value;
-      const planner_id = this.plannerId.value;
-      const start_date = this.newEventStart.value;
-      const end_date = this.newEventEnd.value;
-      const id = document.querySelector('#id').value;
+    const name = this.newEventName.value;
+    const location = this.newEventLocation.value;
+    const description = this.newEventDescription.value;
+    const planner_id = this.plannerId.value;
+    const start_date = this.newEventStart.value;
+    const end_date = this.newEventEnd.value;
+    const id = document.querySelector('#id').value;
 
-      this.adapter.updateEvent(name, location, description, planner_id, start_date, end_date, id)
+    this.adapter.updateEvent(name, location, description, planner_id, start_date, end_date, id)
       .then(data => {
         console.log(data)
         this.clearFields()
@@ -169,10 +167,5 @@ class UserEvents {
         this.getUserEvents()
       })
 
-    }
-
-    
-
-
   }
-
+}

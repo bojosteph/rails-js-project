@@ -30,8 +30,8 @@ class Events {
     this.eventsContainer = document.getElementById('output')
     this.eventContainer = document.getElementById('show-event')
     this.reviewContainer = document.getElementById('show-reviews')
-    this.reviewForm = document.getElementById('new_review')
-    this.reviewForm.addEventListener('submit', this.createReview.bind(this))
+    this.reviewSubmitButton = document.getElementById('submit-review')
+    this.reviewSubmitButton.addEventListener('click', this.createReview.bind(this))
     this.reviewsEventContainer.addEventListener('click', this.deleteEventReview.bind(this))
    
 
@@ -96,8 +96,9 @@ class Events {
     this.adapter.createReview(reviewer_id, reviewing_event_id, body)
       .then(review => {
         this.reviews.push(new Review(review))
-        this.reviewBody.value = '';
-        this.renderEventsReview()
+        this.reviewBody.value = ''
+        this.reviews = []
+        this.getReviews()
       })
 
   }
@@ -105,22 +106,30 @@ class Events {
   
 
   deleteEventReview(e) {
-     e.preventDefault();
-    const review_id = e.target.parentElement.previousElementSibling.dataset.id;
-    const id = this.eventId.dataset.id;
+      e.preventDefault();
+     if (e.target.parentElement.classList.contains('delete-review')) {
+      const review_id = e.target.parentElement.previousElementSibling.dataset.id;
+      const id = this.eventId.dataset.id;
+      
+      
 
     if(confirm('Do You Want to delete?')) {
       this.adapter.deleteEvent(`http://localhost:3000/events/${id}/reviews/${review_id}.json`)
       .then(reviews => {
+        
+        
         console.log('deleted review')
-        this.renderEventsReview();
-  
-        console.log(this.reviews)
+        this.reviews = []
+        this.getReviews()
+        
+        
       })  
       .catch(err => console.log(err));
     }
-    // e.preventDefault();
-  }  
+     
+  } 
+ 
+}
   
       
   }

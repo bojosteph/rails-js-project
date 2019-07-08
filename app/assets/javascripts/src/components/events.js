@@ -1,6 +1,3 @@
-
-
-
 class Events {
   constructor() {
     this.reviews = []
@@ -29,7 +26,7 @@ class Events {
     this.rsvpButton.addEventListener('click', this.rsvpToEvent.bind(this))
     // this.deleteRsvpButton.addEventListener('click', this.deleteRsvp.bind(this))
     this.rsvpsContainer.addEventListener('click', this.deleteRsvp.bind(this))
-   
+
 
 
   }
@@ -50,9 +47,9 @@ class Events {
 
   getEvent() {
 
-    
+
     const id = document.getElementById('show-event').dataset.id
-    
+
     this.adapter.fetchEvents(`http://localhost:3000/events/${id}.json`)
       .then(data => {
         const showEvent = new Event(data)
@@ -62,16 +59,16 @@ class Events {
   }
 
   getReviews() {
-   
-     const id = document.getElementById('show-event').dataset.id
-    
+
+    const id = document.getElementById('show-event').dataset.id
+
     this.adapter.fetchEvents(`http://localhost:3000/events/${id}/reviews.json`)
       .then(reviews => {
         reviews.forEach(review => this.reviews.push(new Review(review)))
         console.log(this.reviews)
       })
       .then(() => {
-        
+
         this.renderEventsReview()
       })
   }
@@ -84,13 +81,13 @@ class Events {
     // debugger
     const rsvpId = document.getElementById('show-event').dataset.id
     this.adapter.fetchEvents(`http://localhost:3000/events/${rsvpId}/rsvps.json`)
-    .then(rsvps => {
-      rsvps.forEach(rsvp => this.rsvps.push(new Rsvp(rsvp)))
-      console.log(this.rsvps)
-    })
-    .then(()=> {
-      this.renderEventRsvps()
-    })
+      .then(rsvps => {
+        rsvps.forEach(rsvp => this.rsvps.push(new Rsvp(rsvp)))
+        console.log(this.rsvps)
+      })
+      .then(() => {
+        this.renderEventRsvps()
+      })
   }
 
   renderEventRsvps() {
@@ -101,7 +98,7 @@ class Events {
 
   createReview(e) {
     e.preventDefault();
-        
+
     const reviewer_id = document.getElementById('review_reviewer_id').value;
     const reviewing_event_id = document.getElementById('show-event').dataset.id;
     const body = document.getElementById('review_body').value;
@@ -123,69 +120,63 @@ class Events {
     const attending_event_id = document.getElementById('show-event').dataset.id;
 
     this.adapter.createRsvp(participant_id, attending_event_id)
-    .then(rsvp => {
-      this.rsvps.push(new Rsvp(rsvp))
-      this.rsvps = []
-      this.getRsvps()
-    })
+      .then(rsvp => {
+        this.rsvps.push(new Rsvp(rsvp))
+        this.rsvps = []
+        this.getRsvps()
+      })
   }
 
   deleteRsvp(e) {
-     e.preventDefault();
+    e.preventDefault();
     //  debugger
-     
-     const participantId = e.target.parentElement.previousElementSibling.dataset.id;
-     const userId = this.rsvpButton.dataset.id
-     if(userId === participantId) {
-       const rsvpId = e.target.parentElement.dataset.id;
-       const id = this.eventId.dataset.id;
 
-       if(confirm('Are You Sure, You can Only delete your Rsvp')) {
-         this.adapter.deleteEvent(`http://localhost:3000/events/${id}/rsvps/${rsvpId}.json`)
-         .then(rsvps => {
-           console.log('deleted rsvp')
-           this.rsvps = []
-           this.getRsvps()
-         })
-         .catch(err => console.log(err))
-       }
-     }
-    
-    
+    const participantId = e.target.parentElement.previousElementSibling.dataset.id;
+    const userId = this.rsvpButton.dataset.id
+    if (userId === participantId) {
+      const rsvpId = e.target.parentElement.dataset.id;
+      const id = this.eventId.dataset.id;
+
+      if (confirm('Are You Sure, You can Only delete your Rsvp')) {
+        this.adapter.deleteEvent(`http://localhost:3000/events/${id}/rsvps/${rsvpId}.json`)
+          .then(rsvps => {
+            console.log('deleted rsvp')
+            this.rsvps = []
+            this.getRsvps()
+          })
+          .catch(err => console.log(err))
+      }
+    }
   }
 
-  
 
-  
+
+
 
   deleteEventReview(e) {
-      e.preventDefault();
-     if (e.target.parentElement.classList.contains('delete-review')) {
+    e.preventDefault();
+    if (e.target.parentElement.classList.contains('delete-review')) {
       const review_id = e.target.parentElement.previousElementSibling.dataset.id;
-      const id = this.eventId.dataset.id;  
-        
-    
-    if(confirm('Do You Want to delete?')) {
-      this.adapter.deleteEvent(`http://localhost:3000/events/${id}/reviews/${review_id}.json`)
-      .then(reviews => {
-        
-        
-        console.log('deleted review')
-        this.reviews = []
-        this.getReviews()
-        
-        
-      })  
-      .catch(err => console.log(err));
+      const id = this.eventId.dataset.id;
+
+
+      if (confirm('Do You Want to delete?')) {
+        this.adapter.deleteEvent(`http://localhost:3000/events/${id}/reviews/${review_id}.json`)
+          .then(reviews => {
+
+
+            console.log('deleted review')
+            this.reviews = []
+            this.getReviews()
+
+
+          })
+          .catch(err => console.log(err));
+      }
+
     }
-     
-  } 
- 
-}
-  
-      
+
   }
 
 
-
-
+}

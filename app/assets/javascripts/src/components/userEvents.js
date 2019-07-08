@@ -1,6 +1,3 @@
-
-
-
 class UserEvents {
   constructor() {
     this.events = [];
@@ -51,7 +48,7 @@ class UserEvents {
     const id = this.plannerId.value;
     this.adapter.fetchEvents(`http://localhost:3000/users/${id}/events.json`)
       .then(events => {
-        events.forEach(event => this.events.push(new Event(event)))
+        events.sort((a,b)=> b.id - a.id).forEach(event => this.events.push(new Event(event)))
         console.log(this.events)
       })
       .then(() => {
@@ -115,7 +112,7 @@ class UserEvents {
 
 
   deleteUserEvent(e) {
-     e.preventDefault()
+    e.preventDefault()
     if (e.target.parentElement.classList.contains('delete')) {
 
       const id = e.target.parentElement.dataset.id;

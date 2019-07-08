@@ -8,16 +8,23 @@
   <div class="container eventsContainer">
     <div class="card card-body card-form">
       <h1>Review Event</h1>
-      <p class="lead">Create Something Great</p>
+      <p class="lead">We Love To Hear From You </p>
       <%= render partial:'/reviews/form', locals: {user: @user, event: @event} %>
       <span class="form-end"></span>
     </div>
     <br>
 
     <br><br>
+    <h4>Event Reviews</h4>
     <div id="show-reviews"></div>
     <!-- <button id="event-button" data-id='<%=current_user.id%>'>Get Events</button> -->
     <br><br>
+    <h4>Event Participants</h4>
+    <div id="show-rsvps" data-id="<%=@event.id %>"></div>
+    <br>
+    <button id="rsvp-event" data-id="<%=current_user.id%>">Rsvp to Event</button> 
+    <br><br>
+    <h5>Thanks for viewing <%=@event.name%>&nbsp;<%=current_user.full_name%> </h5>
     <div id="show-event" data-id="<%=@event.id %>"></div>
   </div>
   <br><br>

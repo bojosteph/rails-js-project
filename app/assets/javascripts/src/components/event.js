@@ -50,26 +50,7 @@ class Event {
              </div> 
     `)
   }
-  renderReviews() {
-    let eventReviews = this.reviews.map(review => {
-      return (`
-    <p>Reviewer: ${review.full_name} Rating: ${review.rating}  Review: ${review.body}</p>
-    `)
-    }).join('')
-
-    let eventParticipants = this.rsvp_events.map(rsvp => {
-      return (`
-    <p>Participants: ${rsvp.participant}</p>
-    `)
-    }).join('')
-    return (`
-  <div class='event'>
-    
-    
-    <p>${eventReviews}</p>
-    <p>${eventParticipants}</p>
-  `)
-   }
+  
 
     
 }

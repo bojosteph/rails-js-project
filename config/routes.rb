@@ -19,9 +19,9 @@ Rails.application.routes.draw do
     end
   end
     
-  get 'events/delete' => 'events#destroy'
-  get 'rsvp_events/delete' => 'rsvp_events#destroy'
-  get 'delete_review' => 'reviews#destroy'
+  # get 'events/delete' => 'events#destroy'
+  # get 'rsvp_events/delete' => 'rsvp_events#destroy'
+  # get 'delete_review' => 'reviews#destroy'
   
  
   resources :users do

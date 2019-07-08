@@ -6,7 +6,6 @@ class EventsAdapter {
 
     
   }
-
   
   fetchEvents(url) {
     return fetch(url)
@@ -89,16 +88,20 @@ createReview(reviewer_id, reviewing_event_id, body) {
   }).then(res => res.json())
 }
 
-// deleteReview(url) {
-//   return fetch(url, {
-//     method: 'DELETE',
-//     headers: {
-//       'Content type': 'application/json',
-//       'X-CSRF-Token': this.csrfToken.content
-//     }
-//   })
-//   .then(this.status)
-// }
+createRsvp(participant_id, attending_event_id) {
+  const rsvp = {
+    participant_id: participant_id,
+    attending_event_id: attending_event_id
+  }
+  return fetch(`http://localhost:3000/events/${attending_event_id}/rsvps.json`, {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json',
+      'X-CSRF-Token': this.csrfToken.content
+    },
+    body: JSON.stringify({rsvp}),
+  }).then(res => res.json())
+}
 
   status(response) {
     if(response.status >= 200 && response.status < 300) {

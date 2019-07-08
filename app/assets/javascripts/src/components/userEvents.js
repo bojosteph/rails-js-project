@@ -1,16 +1,3 @@
-// function runUser() {
-//   console.log('Im Running UserEvents')
-//   const userEvents = new UserEvents();
-
-// }                  
-
-// if (document.readyState != 'loading') runUser();
-
-// else if (document.addEventListener) document.addEventListener('DOMContentLoaded', runUser);
-
-// else document.attachEvent('onreadystatechange', function () {
-//   if (document.readyState == 'complete') runUser();
-// });
 
 
 
@@ -57,7 +44,7 @@ class UserEvents {
       this.events = []
       this.getUserEvents();
     })
-    e.preventDefault()
+    // e.preventDefault()
   }
 
   getUserEvents() {
@@ -128,7 +115,7 @@ class UserEvents {
 
 
   deleteUserEvent(e) {
-    // e.preventDefault()
+     e.preventDefault()
     if (e.target.parentElement.classList.contains('delete')) {
 
       const id = e.target.parentElement.dataset.id;
@@ -145,7 +132,7 @@ class UserEvents {
           .catch(err => console.log(err));
       }
     }
-    e.preventDefault();
+    // e.preventDefault();
   }
 
   editEvent(e) {

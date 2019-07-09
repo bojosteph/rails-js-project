@@ -1,7 +1,8 @@
 function run() {
 
   console.log('Im Running Events')
-  const app = new App()
+  const app = new App();
+  
   
 }
 

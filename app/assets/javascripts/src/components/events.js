@@ -32,7 +32,7 @@ class Events {
   }
 
   getEvents() {
-    this.adapter.fetchEvents('http://localhost:3000/events.json')
+    this.adapter.fetchEvents('http://localhost:3000/events')
       .then(function (data) {
         console.log(data)
         data.map(event => {
@@ -50,7 +50,7 @@ class Events {
 
     const id = document.getElementById('show-event').dataset.id
 
-    this.adapter.fetchEvents(`http://localhost:3000/events/${id}.json`)
+    this.adapter.fetchEvents(`http://localhost:3000/events/${id}`)
       .then(data => {
         const showEvent = new Event(data)
         const showEventHtml = showEvent.renderEvent()
@@ -62,7 +62,7 @@ class Events {
 
     const id = document.getElementById('show-event').dataset.id
 
-    this.adapter.fetchEvents(`http://localhost:3000/events/${id}/reviews.json`)
+    this.adapter.fetchEvents(`http://localhost:3000/events/${id}/reviews`)
       .then(reviews => {
         reviews.forEach(review => this.reviews.push(new Review(review)))
         console.log(this.reviews)
@@ -80,7 +80,7 @@ class Events {
   getRsvps() {
     // debugger
     const rsvpId = document.getElementById('show-event').dataset.id
-    this.adapter.fetchEvents(`http://localhost:3000/events/${rsvpId}/rsvps.json`)
+    this.adapter.fetchEvents(`http://localhost:3000/events/${rsvpId}/rsvps`)
       .then(rsvps => {
         rsvps.forEach(rsvp => this.rsvps.push(new Rsvp(rsvp)))
         console.log(this.rsvps)

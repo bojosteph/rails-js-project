@@ -8,7 +8,11 @@ class EventsAdapter {
   }
   
   fetchEvents(url) {
-    return fetch(url)
+    return fetch(url, {
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
     .then(this.status)
     .then(this.json)
   }
@@ -25,11 +29,12 @@ class EventsAdapter {
       end_date: end_date
     }
     
-    return fetch('http://localhost:3000/events.json', {
+    return fetch('http://localhost:3000/events', {
       method: 'POST',
       
       headers: {
         'content-type': 'application/json',
+        'Accept': 'application/json',
          'X-CSRF-Token': this.token.value
       },
       body: JSON.stringify({event}),
@@ -43,6 +48,7 @@ class EventsAdapter {
       method: 'DELETE',
       headers: {
         'Content-type': 'application/json',
+        'Accept': 'application/json',
         'X-CSRF-Token': this.csrfToken.content
       }
     })
@@ -58,10 +64,11 @@ class EventsAdapter {
       start_date: start_date,
       end_date: end_date
     }
-    return fetch(`http://localhost:3000/events/${id}.json`, {
+    return fetch(`http://localhost:3000/events/${id}`, {
           method: 'PATCH',
           headers: {
             'content-type': 'application/json',
+            'Accept': 'application/json',
             'X-CSRF-Token': this.csrfToken.content
           },
           body: JSON.stringify({
@@ -78,10 +85,11 @@ createReview(reviewer_id, reviewing_event_id, body) {
     reviewing_event_id: reviewing_event_id,
     body: body
   }
-  return fetch(`http://localhost:3000/events/${reviewing_event_id}/reviews.json`, {
+  return fetch(`http://localhost:3000/events/${reviewing_event_id}/reviews`, {
     method: 'POST',
     headers: {
       'Content-type': 'application/json',
+      'Accept': 'application/json',
       'X-CSRF-Token': this.csrfToken.content
     },
     body: JSON.stringify({review}),
@@ -93,10 +101,11 @@ createRsvp(participant_id, attending_event_id) {
     participant_id: participant_id,
     attending_event_id: attending_event_id
   }
-  return fetch(`http://localhost:3000/events/${attending_event_id}/rsvps.json`, {
+  return fetch(`http://localhost:3000/events/${attending_event_id}/rsvps`, {
     method: 'POST',
     headers: {
       'Content-type': 'application/json',
+      'Accept': 'application/json',
       'X-CSRF-Token': this.csrfToken.content
     },
     body: JSON.stringify({rsvp}),

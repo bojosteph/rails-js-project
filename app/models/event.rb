@@ -5,7 +5,8 @@ class Event < ApplicationRecord
   has_many :participants, through: :rsvps, dependent: :destroy
   has_many :reviews, foreign_key: :reviewing_event_id
   has_many :reviewers, through: :reviews, dependent: :destroy
-  
+  alias_attribute :start_time, :start_date
+  alias_attribute :end_time, :end_date
   
 
   validate :date_must_be_current, if: :has_date_range?

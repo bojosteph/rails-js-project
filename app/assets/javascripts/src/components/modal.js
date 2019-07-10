@@ -1,27 +1,32 @@
-// var btn = document.getElementById('modal_opener');
-// var modal = document.querySelector('.modal');
 
-// function attachModalListeners(modalElm) {
-//   modalElm.querySelector('.close_modal').addEventListener('click', toggleModal);
-//   modalElm.querySelector('.overlay').addEventListener('click', toggleModal);
-// }
+let init = function showModal() {
+// Get the modal
+var modal = document.getElementById("myModal");
 
-// function detachModalListeners(modalElm) {
-//   modalElm.querySelector('.close_modal').removeEventListener('click', toggleModal);
-//   modalElm.querySelector('.overlay').removeEventListener('click', toggleModal);
-// }
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
 
-// function toggleModal() {
-//   var currentState = modal.style.display;
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
 
-//   // If modal is visible, hide it. Else, display it.
-//   if (currentState === 'none') {
-//     modal.style.display = 'block';
-//     attachModalListeners(modal);
-//   } else {
-//     modal.style.display = 'none';
-//     detachModalListeners(modal);
-//   }
-// }
+// When the user clicks on the button, open the modal 
+btn.onclick = function () {
+  modal.style.display = "block";
+}
 
-// btn.addEventListener('click', toggleModal);
+// When the user clicks on <span> (x), close the modal
+span.onclick = function () {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function (event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+}
+
+
+

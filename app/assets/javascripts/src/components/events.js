@@ -31,7 +31,8 @@ class Events {
 
   }
 
-  getEvents() {
+  getEvents(e) {
+    // e.preventDefault();
     this.adapter.fetchEvents('http://localhost:3000/events')
       .then(function (data) {
         console.log(data)
@@ -46,8 +47,7 @@ class Events {
 
 
   getEvent() {
-
-
+    //  debugger
     const id = document.getElementById('show-event').dataset.id
 
     this.adapter.fetchEvents(`http://localhost:3000/events/${id}`)
@@ -171,7 +171,7 @@ class Events {
 
 
           })
-          .catch(err => console.log(err));
+         .catch(err => console.log(err));
       }
 
     }

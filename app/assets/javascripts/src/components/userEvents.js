@@ -2,7 +2,7 @@ class UserEvents {
   constructor() {
     this.events = [];
     this.adapter = new EventsAdapter();
-
+    
 
     this.newEventName = document.getElementById('event_name');
     this.newEventLocation = document.getElementById('event_location');
@@ -46,15 +46,17 @@ class UserEvents {
 
   getUserEvents() {
     const id = this.plannerId.value;
-    this.adapter.fetchEvents(`http://localhost:3000/users/${id}/events.json`)
+    this.adapter.fetchEvents(`http://localhost:3000/users/${id}/events`)
       .then(events => {
         events.sort((a,b)=> b.id - a.id).forEach(event => this.events.push(new Event(event)))
         console.log(this.events)
+        this.renderUserEvents()
       })
-      .then(() => {
+        .then(() => {
         this.renderUserEvents()
 
       })
+      return false;
   }
 
 
@@ -112,7 +114,7 @@ class UserEvents {
 
 
   deleteUserEvent(e) {
-    e.preventDefault()
+   
     if (e.target.parentElement.classList.contains('delete')) {
 
       const id = e.target.parentElement.dataset.id;
@@ -124,12 +126,13 @@ class UserEvents {
 
 
             console.log('deleted item');
+            this.events = [];
             this.getUserEvents();
           })
           .catch(err => console.log(err));
       }
     }
-    // e.preventDefault();
+    
   }
 
   editEvent(e) {

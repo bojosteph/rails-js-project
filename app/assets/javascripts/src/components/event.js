@@ -23,7 +23,7 @@ class Event {
                   <p class="card-description">${this.description}</p>
                   <p class="card-start-date">${this.start_date}</p>
                   <p class="card-end-date">${this.end_date}</p> 
-                 <a href="#" class="edit card-link" data-id="${this.id}">
+                 <a href="#" class="edit card-link" id="show-event-data" data-id="${this.id}">
                     <i class="fa fa-pencil"></i>
                  </a>
 

@@ -18,7 +18,7 @@ class EventsAdapter {
   }
 
   createEvent(name, location, description, planner_id, start_date, end_date) {
-    // const token = document.querySelector('[name="authenticity_token"]').value;
+    
     
     const event = {
       name: name,
@@ -29,7 +29,7 @@ class EventsAdapter {
       end_date: end_date
     }
     
-    return fetch('http://localhost:3000/events', {
+    return fetch(`http://localhost:3000/users/${planner_id}/events`, {
       method: 'POST',
       
       headers: {

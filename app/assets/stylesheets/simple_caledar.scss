@@ -46,7 +46,7 @@
   }
 
   .day {
-    height: 80px;
+    height: 100px;
   }
 
   .wday-0 {}
@@ -64,12 +64,16 @@
   .wday-6 {}
 
   .today {
-    background: #FFFFC0
+    background-color: chartreuse
   }
 
-  .past {}
+  .past {
+    background: cadetblue
+  }
 
-  .future {}
+  .future {
+    background: aqua
+  }
 
   .start-date {}
 
@@ -83,5 +87,7 @@
 
   .current-month {}
 
-  .has-events {}
+  .has-events {
+    background: cornflowerblue
+  }
 }

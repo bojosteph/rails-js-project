@@ -1,17 +1,6 @@
 <div class="container eventsContainer">
 
-  <div class="events-calendar">
-    <div id="events-calendar">
-      <%= month_calendar events: @events do |date, events| %>
-      <%= date %>
-      <% events.each do |event| %>
-      <div id="event-date" data-id="<%=event.id %>" data-toggle="modal" data-target="#myModal">
-        <%= event.name %>
-      </div>
-      <% end %>
-      <% end %>
-    </div>
-  </div>
+  <%= render '/events/calendar' %>
   
 
   <div class="card card-body card-form">

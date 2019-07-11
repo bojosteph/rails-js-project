@@ -35,7 +35,7 @@ class Events {
     // e.preventDefault();
     this.adapter.fetchEvents('http://localhost:3000/events')
       .then(function (data) {
-        console.log(data)
+        console.log('Request succeeded with JSON response', data);
         data.map(event => {
           const newEvent = new Event(event)
           const newEventHtml = newEvent.renderEvents()
@@ -44,6 +44,8 @@ class Events {
       })
       .catch(err => console.log(err))
   }
+
+
 
 
   getEvent() {
@@ -56,6 +58,7 @@ class Events {
         const showEventHtml = showEvent.renderEvent()
         this.eventContainer.innerHTML = showEventHtml
       })
+      .catch(err => console.log(err))
   }
 
   getReviews() {
@@ -71,6 +74,7 @@ class Events {
 
         this.renderEventsReview()
       })
+      .catch(err => console.log(err))
   }
 
   renderEventsReview() {
@@ -88,7 +92,8 @@ class Events {
       .then(() => {
         this.renderEventRsvps()
       })
-  }
+      .catch(err => console.log(err))
+   }
 
   renderEventRsvps() {
     this.rsvpsContainer.innerHTML = this.rsvps.map(rsvp => rsvp.renderRsvp()).join('')
@@ -110,8 +115,8 @@ class Events {
         this.reviews = []
         this.getReviews()
       })
-
-  }
+      .catch(err => console.log(err))   
+    }
 
   rsvpToEvent(e) {
     e.preventDefault();
@@ -125,6 +130,7 @@ class Events {
         this.rsvps = []
         this.getRsvps()
       })
+      .catch(err => console.log(err))
   }
 
   deleteRsvp(e) {
@@ -171,7 +177,7 @@ class Events {
 
 
           })
-         .catch(err => console.log(err));
+          .catch(err => console.log(err));
       }
 
     }

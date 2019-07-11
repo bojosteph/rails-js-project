@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function (event) {
   console.log('calendar')
   const calendar = new Calendar();
+ 
 });
 
 
@@ -10,7 +11,7 @@ class Calendar {
 
     
     this.eventShow = document.getElementById('myModal')
-    this.eventsIndexModal = document.getElementsByClassName('.events-modal')
+    this.eventsIndexModal = document.getElementById('events-modal')
     
     this.calendarBody = document.querySelector('.events-calendar')
     this.calendarBody.addEventListener('click', this.showCalendarEvent.bind(this))
@@ -22,8 +23,8 @@ class Calendar {
     console.log("clicked")
       
             
-      debugger
-      const id = e.target.firstElementChild.dataset.id
+      
+    const id = e.target.dataset.id
 
     this.adapter.fetchEvents(`http://localhost:3000/events/${id}`)
 
@@ -33,29 +34,36 @@ class Calendar {
         const indexEventHtml = indexEvent.renderModal()
         this.eventsIndexModal.innerHTML = indexEventHtml
         
-        modal.style.display = 'block';
+        this.modalClickEvent()
+        
 
       })
-    // return false;
+    .catch(err => console.log(err))
   }
+
+  
 
   modalClickEvent(e) {
     
     let modal = document.getElementById("myModal");
-    let btn = document.getElementById("event-date");
+    let btn = document.getElementById("myBtn");
     let span = document.getElementsByClassName("close")[0];
 
     btn.onclick = function () {
       modal.style.display = "block";
+      btn.hide();
     }
     span.onclick = function () {
       modal.style.display = "none";
+      btn.hide();
+      
     }
 
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function (event) {
       if (event.target == modal) {
         modal.style.display = "none";
+
       }
     }
 

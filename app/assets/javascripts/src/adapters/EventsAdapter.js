@@ -15,6 +15,7 @@ class EventsAdapter {
     })
     .then(this.status)
     .then(this.json)
+    .catch(error => console.error('Error:', error));
   }
 
   createEvent(name, location, description, planner_id, start_date, end_date) {
@@ -40,6 +41,7 @@ class EventsAdapter {
       body: JSON.stringify({event}),
     }).then(this.status)
       .then(this.json)
+      .catch(error => console.error('Error message from adapter:', error));
   }
 
   deleteEvent(url) {
@@ -54,6 +56,7 @@ class EventsAdapter {
     })
      .then(this.status)
      .then(this.json)
+     .catch(error => console.error('Error:', error));
   }  
 
   updateEvent(name, location, description, planner_id, start_date, end_date, id) {
@@ -77,6 +80,7 @@ class EventsAdapter {
 
   }).then(this.status)
     .then(this.json)
+    .catch(error => console.error('Error:', error));
 }
 
 createReview(reviewer_id, reviewing_event_id, body) {
@@ -93,7 +97,9 @@ createReview(reviewer_id, reviewing_event_id, body) {
       'X-CSRF-Token': this.csrfToken.content
     },
     body: JSON.stringify({review}),
-  }).then(res => res.json())
+  }).then(this.status)
+    .then(this.json)
+    .catch(error => console.error('Error:', error));
 }
 
 createRsvp(participant_id, attending_event_id) {
@@ -109,7 +115,9 @@ createRsvp(participant_id, attending_event_id) {
       'X-CSRF-Token': this.csrfToken.content
     },
     body: JSON.stringify({rsvp}),
-  }).then(res => res.json())
+  }).then(this.status)
+    .then(this.json)
+    .catch(error => console.error('Error:', error));
 }
 
   status(response) {

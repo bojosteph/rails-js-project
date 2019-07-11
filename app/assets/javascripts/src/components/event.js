@@ -53,7 +53,7 @@ class Event {
 
   renderModal() {
     return (`
-    <button id="myBtn">Open Modal</button>
+    <button id="myBtn" onclick="save()">Open Modal</button>
 
     <div id="myModal" class="modal">
 

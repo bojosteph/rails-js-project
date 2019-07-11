@@ -36,12 +36,12 @@ class UserEvents {
     const id = document.querySelector('#id').value;
 
     this.adapter.createEvent(name, location, description, planner_id, start_date, end_date).then(event => {
+      console.log('Request succeeded with CreateEvent response', event);
       this.events.push(new Event(event))
       this.clearFields()
-      this.events = []
-      this.getUserEvents();
+      this.renderUserEvents();
     })
-    // e.preventDefault()
+     .catch(err => console.log('There is error',err));
   }
 
   getUserEvents() {
@@ -49,14 +49,13 @@ class UserEvents {
     this.adapter.fetchEvents(`http://localhost:3000/users/${id}/events`)
       .then(events => {
         events.sort((a,b)=> b.id - a.id).forEach(event => this.events.push(new Event(event)))
-        console.log(this.events)
-        this.renderUserEvents()
-      })
+        console.log('Request succeeded with getUserEvents ',
+          this.events)
+        })
         .then(() => {
         this.renderUserEvents()
-
       })
-      return false;
+    .catch(err => console.log(err))
   }
 
 
@@ -148,11 +147,11 @@ class UserEvents {
 
     this.adapter.updateEvent(name, location, description, planner_id, start_date, end_date, id)
       .then(data => {
-        console.log(data)
+        console.log('updated event',data)
         this.clearFields()
         this.events = []
         this.getUserEvents()
       })
-
+    .catch(err => console.log(err))
   }
 }

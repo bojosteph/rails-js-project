@@ -13,10 +13,9 @@
 //
 //= require jquery3
 //= require jquery_ujs
-//= require moment 
-//= require fullcalendar
 //= require activestorage
 //= require_tree .
+
 
 
 

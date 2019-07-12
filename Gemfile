@@ -31,8 +31,8 @@ gem 'dotenv-rails'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem "simple_calendar", "~> 2.0"
-gem 'fullcalendar-rails'
-gem 'momentjs-rails'
+# gem 'fullcalendar-rails'
+# gem 'momentjs-rails'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password

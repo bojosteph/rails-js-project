@@ -51,11 +51,11 @@ class Calendar {
 
     btn.onclick = function () {
       modal.style.display = "block";
-      btn.hide();
+      
     }
     span.onclick = function () {
       modal.style.display = "none";
-      btn.hide();
+      
       
     }
 

@@ -12,7 +12,7 @@ class EventsController < ApplicationController
           @events = Event.all
         end
          respond_to do |format|
-          format.html {render :index}
+          format.html {}
           format.json { render json: @events, status: 200}
       end
     end

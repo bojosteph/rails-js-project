@@ -20,6 +20,7 @@ class UserEvents {
     this.userEventsContainer.addEventListener('click', this.enableEdit.bind(this))
     this.editButton.addEventListener('click', this.editEvent.bind(this))
     this.userEventsContainer.addEventListener('click', this.deleteUserEvent.bind(this))
+    
 
     this.getUserEvents();
   }
@@ -154,4 +155,7 @@ class UserEvents {
       })
     .catch(err => console.log(err))
   }
+
+  
+
 }

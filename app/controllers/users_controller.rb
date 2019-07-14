@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  layout 'user_events'
   before_action :authenticate_user!, except: %i[new create]
 
   def index

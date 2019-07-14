@@ -1,0 +1,10 @@
+//= require jquery3
+//= require jquery_ujs
+//= require activestorage
+//= require src/components/show_event
+//= require src/adapters/event_adapters
+//= require src/components/app
+//= require src/components/event
+//= require run
+//= require src/components/review
+//= require src/components/rsvps

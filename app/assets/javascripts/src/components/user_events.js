@@ -1,8 +1,16 @@
+document.addEventListener("DOMContentLoaded", function (event) {
+  console.log('Im From User Events')
+  const userEvents = new UserEvents();
+
+});
+
+
+
 class UserEvents {
   constructor() {
     this.events = [];
     this.adapter = new EventsAdapter();
-    
+
 
     this.newEventName = document.getElementById('event_name');
     this.newEventLocation = document.getElementById('event_location');
@@ -20,7 +28,7 @@ class UserEvents {
     this.userEventsContainer.addEventListener('click', this.enableEdit.bind(this))
     this.editButton.addEventListener('click', this.editEvent.bind(this))
     this.userEventsContainer.addEventListener('click', this.deleteUserEvent.bind(this))
-    
+
 
     this.getUserEvents();
   }
@@ -37,23 +45,23 @@ class UserEvents {
     const id = document.querySelector('#id').value;
 
     this.adapter.createEvent(name, location, description, planner_id, start_date, end_date).then(event => {
-      console.log('Request succeeded with CreateEvent response', event);
-      this.events.push(new Event(event))
-      this.clearFields()
-      this.renderUserEvents();
-    })
-     .catch(err => console.log('There is error',err));
+        console.log('Request succeeded with CreateEvent response', event);
+        this.events.push(new Event(event))
+        this.clearFields()
+        this.renderUserEvents();
+      })
+      .catch(err => console.log('There is error', err));
   }
 
   getUserEvents() {
     const id = this.plannerId.value;
     this.adapter.fetchEvents(`http://localhost:3000/users/${id}/events`)
       .then(events => {
-        events.sort((a,b)=> b.id - a.id).forEach(event => this.events.push(new Event(event)))
+        events.sort((a, b) => b.id - a.id).forEach(event => this.events.push(new Event(event)))
         console.log('Request succeeded with getUserEvents ',
           this.events)
-        })
-        .then(() => {
+      })
+      .then(() => {
         this.renderUserEvents()
       })
     .catch(err => console.log(err))
@@ -114,7 +122,7 @@ class UserEvents {
 
 
   deleteUserEvent(e) {
-   
+
     if (e.target.parentElement.classList.contains('delete')) {
 
       const id = e.target.parentElement.dataset.id;
@@ -132,7 +140,7 @@ class UserEvents {
           .catch(err => console.log(err));
       }
     }
-    
+
   }
 
   editEvent(e) {
@@ -148,14 +156,14 @@ class UserEvents {
 
     this.adapter.updateEvent(name, location, description, planner_id, start_date, end_date, id)
       .then(data => {
-        console.log('updated event',data)
+        console.log('updated event', data)
         this.clearFields()
         this.events = []
         this.getUserEvents()
       })
-    .catch(err => console.log(err))
+      .catch(err => console.log(err))
   }
 
-  
+
 
 }

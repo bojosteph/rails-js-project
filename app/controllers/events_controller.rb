@@ -28,7 +28,7 @@ class EventsController < ApplicationController
       @rsvps = Rsvp.where(attending_event_id: @event.id)
       @reviews = Review.where(reviewing_event_id: @event.id)
       respond_to do |format|
-        format.html { render :show }
+        format.html { render layout: 'event_show'}
         format.json { render json: @event, status: 200}
       end
     end

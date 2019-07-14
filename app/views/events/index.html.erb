@@ -4,6 +4,11 @@
       <a href="#" class="navbar-brand">All The Events</a>
     </div>
   </nav> -->
+  <% content_for :javascripts do %>
+  <%= javascript_include_tag 'events_index' %>
+  <% end %>
+
+
   <h2 align="center" style="padding-top: 10Ppx; color:black;  padding-bottom: 10px;"> ALL UPCOMING EVENTS</h2>
 
          <%= render 'calendar' %>

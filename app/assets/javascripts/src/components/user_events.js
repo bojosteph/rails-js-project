@@ -11,7 +11,8 @@ class UserEvents {
     this.events = [];
     this.adapter = new EventsAdapter();
 
-
+    this.calendar = document.getElementById('events-calendar')
+    this.hideButton = document.getElementById('hide')
     this.newEventName = document.getElementById('event_name');
     this.newEventLocation = document.getElementById('event_location');
     this.newEventDescription = document.getElementById('event_description');
@@ -28,6 +29,7 @@ class UserEvents {
     this.userEventsContainer.addEventListener('click', this.enableEdit.bind(this))
     this.editButton.addEventListener('click', this.editEvent.bind(this))
     this.userEventsContainer.addEventListener('click', this.deleteUserEvent.bind(this))
+    this.hideButton.addEventListener('click', this.hideCalendar.bind(this))
 
 
     this.getUserEvents();
@@ -162,6 +164,16 @@ class UserEvents {
         this.getUserEvents()
       })
       .catch(err => console.log(err))
+  }
+
+  hideCalendar(e) {
+    e.preventDefault();
+    const cal = this.calendar;
+    if(cal.style.display === "none") {
+      cal.style.display = "block";
+    } else {
+      cal.style.display = "none";
+    }
   }
 
 

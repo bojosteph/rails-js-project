@@ -22,10 +22,10 @@ class UserEvents {
     this.idInput = document.querySelector('#id');
     this.eventsContainer = document.getElementById('output');
     this.userEventsContainer = document.getElementById('user-events');
-    this.eventForm = document.querySelector('.event-submit');
-    this.eventForm.addEventListener('click', this.createEvent.bind(this));
-    // this.userEventsContainer.addEventListener('click', this.deleteUserEvent.bind(this))
+    this.eventForm = document.querySelector('.event-submit');  
     this.editButton = document.querySelector('.event-edit')
+
+    this.eventForm.addEventListener('click', this.createEvent.bind(this));   
     this.userEventsContainer.addEventListener('click', this.enableEdit.bind(this))
     this.editButton.addEventListener('click', this.editEvent.bind(this))
     this.userEventsContainer.addEventListener('click', this.deleteUserEvent.bind(this))

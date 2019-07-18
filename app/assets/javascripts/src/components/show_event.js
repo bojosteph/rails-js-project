@@ -134,9 +134,9 @@ class ShowEvent {
             this.getRsvps()
           })
           .catch(err => console.log(err))
-      }
-    }
-  }
+       }
+     }
+   }
 
 
 
@@ -161,11 +161,9 @@ class ShowEvent {
 
           })
           .catch(err => console.log(err));
-      }
-
-    }
-
-  }
+        }    
+       }   
+     }
 
 
 }

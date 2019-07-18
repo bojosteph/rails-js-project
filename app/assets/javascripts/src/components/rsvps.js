@@ -6,7 +6,7 @@ class Rsvp {
   }
 
   renderRsvp() {
-        return (`
+    return (`
         <div class="card mb-3">
           <div class="card-rsvp-body">
             <li data-id="${this.participant_id}">${this.participant}</li>
@@ -16,5 +16,5 @@ class Rsvp {
           </div>
         </div>
         `)
-      }
+  }
 }

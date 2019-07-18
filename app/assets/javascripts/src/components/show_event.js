@@ -1,6 +1,3 @@
-
-
-
 class ShowEvent {
   constructor() {
     this.reviews = []
@@ -33,23 +30,6 @@ class ShowEvent {
 
 
   }
-
-  // getEvents(e) {
-  //   // e.preventDefault();
-  //   this.adapter.fetchEvents('http://localhost:3000/events')
-  //     .then(function (data) {
-  //       console.log('Request succeeded with JSON response', data);
-  //       data.map(event => {
-  //         const newEvent = new Event(event)
-  //         const newEventHtml = newEvent.renderEvents()
-  //         document.getElementById('output').innerHTML += newEventHtml
-  //       })
-  //     })
-  //     .catch(err => console.log(err))
-  // }
-
-
-
 
   getEvent() {
     //  debugger
@@ -96,7 +76,7 @@ class ShowEvent {
         this.renderEventRsvps()
       })
       .catch(err => console.log(err))
-   }
+  }
 
   renderEventRsvps() {
     this.rsvpsContainer.innerHTML = this.rsvps.map(rsvp => rsvp.renderRsvp()).join('')
@@ -118,8 +98,8 @@ class ShowEvent {
         this.reviews = []
         this.getReviews()
       })
-      .catch(err => console.log(err))   
-    }
+      .catch(err => console.log(err))
+  }
 
   rsvpToEvent(e) {
     e.preventDefault();

@@ -20,7 +20,7 @@ class Review {
 
 }
 
-Review.prototype.renderReview = function() {
+Review.prototype.renderReview = function () {
   return (`
     <div class="card mb-3">
       <div class="card-review-body">

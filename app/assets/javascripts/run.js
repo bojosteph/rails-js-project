@@ -1,6 +1,6 @@
 function run() {
  
-  console.log('Im Running Events')
+  console.log('Im Running showEvent from App')
   const app = new App();
   
   

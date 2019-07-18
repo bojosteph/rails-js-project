@@ -5,7 +5,10 @@ class EventsController < ApplicationController
     
     def index 
         # raise params.inspect
-        if params[:user_id]
+        if params[:search]
+          # params[:search].downcase!
+          @events = Event.where('name LIKE ?', "%#{params[:search]}%")
+        elsif params[:user_id]
           @user = User.find_by(id: params[:user_id])
           @events = @user.events
         else

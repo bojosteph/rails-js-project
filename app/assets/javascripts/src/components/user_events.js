@@ -11,6 +11,7 @@ class UserEvents {
     this.events = [];
     this.adapter = new EventsAdapter();
 
+    this.searchForm = document.getElementById('search-event')
     this.calendar = document.getElementById('events-calendar')
     this.hideButton = document.getElementById('hide')
     this.newEventName = document.getElementById('event_name');
@@ -25,11 +26,13 @@ class UserEvents {
     this.eventForm = document.querySelector('.event-submit');  
     this.editButton = document.querySelector('.event-edit')
 
+    this.searchForm.addEventListener('keyup', this.searchEvent.bind(this))
     this.eventForm.addEventListener('click', this.createEvent.bind(this));   
     this.userEventsContainer.addEventListener('click', this.enableEdit.bind(this))
     this.editButton.addEventListener('click', this.editEvent.bind(this))
     this.userEventsContainer.addEventListener('click', this.deleteUserEvent.bind(this))
     this.hideButton.addEventListener('click', this.hideCalendar.bind(this))
+    
 
 
     this.getUserEvents();
@@ -176,6 +179,13 @@ class UserEvents {
     }
   }
 
+  searchEvent(e) {
+      e.preventDefault()
+      const searchInput = this.searchForm.value
+      const filteredEvents = this.events.filter(event => event.name.toLowerCase().includes(searchInput.toLowerCase()))
+      this.userEventsContainer.innerHTML = filteredEvents.map(event => event.renderEvents()).join('')
+    }
+  }
+ 
 
 
-}
